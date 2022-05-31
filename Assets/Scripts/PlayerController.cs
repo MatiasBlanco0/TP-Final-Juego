@@ -28,6 +28,18 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector3.forward * speed * Time.deltaTime, ForceMode.Impulse);
         }
+        if (Input.GetKey(KeyCode.S)){
+            rb.AddForce(Vector3.back * speed * Time.deltaTime, ForceMode.Impulse);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            rb.AddForce(Vector3.left * speed * Time.deltaTime, ForceMode.Impulse);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            rb.AddForce(Vector3.right * speed * Time.deltaTime, ForceMode.Impulse);
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && hasJump > 0)
         {
             rb.AddForce(Vector3.up * jumpForce * Time.deltaTime, ForceMode.Impulse);
