@@ -478,11 +478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffbf64bb0450b674aa02d5aec35405c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxJump: 1
-  camara: {fileID: 0}
-  speed: 20
-  maxSpeed: 0
-  jumpForce: 100
+  moveSpeed: 7
+  orientation: {fileID: 652561912}
 --- !u!54 &937518718
 Rigidbody:
   m_ObjectHideFlags: 0
