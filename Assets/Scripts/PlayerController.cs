@@ -4,55 +4,45 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public float moveSpeed;
+
+    public Transform orientation;
+
+    float horizontalInput;
+    float verticalInput;
+
+    Vector3 moveDirection;
+
     Rigidbody rb;
-    SphereCollider groundCollider;
-    int hasJump;
-    public int maxJump = 1;
-    public GameObject camara;
-    public float speed = 20f;
-    public float maxSpeed;
-    public float jumpForce = 100f;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        groundCollider = GetComponentInChildren<SphereCollider>();
-        hasJump = maxJump;
+        rb.freezeRotation = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        MyInput();
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            rb.AddForce(Vector3.forward * speed * Time.deltaTime, ForceMode.Impulse);
-        }
-        if (Input.GetKey(KeyCode.S)){
-            rb.AddForce(Vector3.back * speed * Time.deltaTime, ForceMode.Impulse);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            rb.AddForce(Vector3.left * speed * Time.deltaTime, ForceMode.Impulse);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            rb.AddForce(Vector3.right * speed * Time.deltaTime, ForceMode.Impulse);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && hasJump > 0)
-        {
-            rb.AddForce(Vector3.up * jumpForce * Time.deltaTime, ForceMode.Impulse);
-            hasJump--;
-        }
-        
     }
 
-    void OnCollisionEnter(Collision col)
+    void FixedUpdate()
     {
-        if(col.gameObject.tag == "Ground")
-        {
-            hasJump = maxJump;
-        }
+        MovePlayer();
+    }
+
+    void MyInput()
+    {
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+    }
+
+    void MovePlayer()
+    {
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10f,ForceMode.Force);
     }
 }
