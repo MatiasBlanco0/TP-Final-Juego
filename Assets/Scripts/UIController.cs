@@ -20,6 +20,5 @@ public class UIController : MonoBehaviour
     void Update()
     {
         txtSpeed.text = ((Mathf.Floor(rb.velocity.magnitude * resolucion) / resolucion)).ToString();
-        //transform.eulerAngles = new Vector3((Mathf.PingPong(0.5f, 180f)) - 90f, 0f, 0f);
     }
 }
