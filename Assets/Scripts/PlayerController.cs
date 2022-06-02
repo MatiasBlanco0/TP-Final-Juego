@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     [Header("Slope Handling")]
     public float maxSlopeAngle;
     RaycastHit slopeHit;
+    bool exitingSlope;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -137,7 +138,7 @@ public class PlayerController : MonoBehaviour
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        if (OnSlope())
+        if (OnSlope() && !exitingSlope)
         {
             rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
 
@@ -160,7 +161,7 @@ public class PlayerController : MonoBehaviour
 
     void SpeedControl()
     {
-        if (OnSlope())
+        if (OnSlope() && !exitingSlope)
         {
             if (rb.velocity.magnitude > moveSpeed)
             {
@@ -182,6 +183,8 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
+        exitingSlope = true;
+
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
@@ -190,6 +193,8 @@ public class PlayerController : MonoBehaviour
     void ResetJump()
     {
         readyToJump = true;
+
+        exitingSlope = false;
     }
 
     bool OnSlope()
