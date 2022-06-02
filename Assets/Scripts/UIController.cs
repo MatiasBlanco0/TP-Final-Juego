@@ -19,6 +19,8 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Multiplico la velocidad por la resolucion, hago floor y despues lo divido por la resolucion,
+        // eliminando algunos numeros decimales que no son necesarios
         txtSpeed.text = ((Mathf.Floor(rb.velocity.magnitude * resolucion) / resolucion)).ToString();
     }
 }
