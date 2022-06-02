@@ -18,6 +18,11 @@ public class PlayerController : MonoBehaviour
     public float airMultiplier;
     bool readyToJump;
 
+    [Header("Crouching")]
+    public float crouchSpeed;
+    public float crouchYScale;
+    float startYScale;
+
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
@@ -38,6 +43,7 @@ public class PlayerController : MonoBehaviour
     {
         walking,
         sprinting,
+        crouching,
         air
     }
 
@@ -47,6 +53,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
+
+        startYScale = transform.localScale.y;
     }
 
     // Update is called once per frame
@@ -86,11 +94,26 @@ public class PlayerController : MonoBehaviour
 
             Invoke(nameof(ResetJump),jumpCooldown);
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+        }
     }
 
     void StateHandler()
     {
-        if(isOnGround && Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            state = MovemenState.crouching;
+            moveSpeed = crouchSpeed;
+        }else if(isOnGround && Input.GetKey(KeyCode.LeftShift))
         {
             state = MovemenState.sprinting;
             moveSpeed = sprintSpeed;
