@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed;
+
+    [Header("Movement")]
+    float moveSpeed;
+    public float walkSpeed;
+    public float sprintSpeed;
 
     public float groundDrag;
 
+    [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
 
+    [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
     bool isOnGround;
@@ -25,6 +31,16 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+
+    public MovemenState state;
+
+    public enum MovemenState
+    {
+        walking,
+        sprinting,
+        air
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +56,7 @@ public class PlayerController : MonoBehaviour
 
         MyInput();
         SpeedControl();
+        StateHandler();
 
         if (isOnGround)
         {
@@ -68,6 +85,24 @@ public class PlayerController : MonoBehaviour
             Jump();
 
             Invoke(nameof(ResetJump),jumpCooldown);
+        }
+    }
+
+    void StateHandler()
+    {
+        if(isOnGround && Input.GetKey(KeyCode.LeftShift))
+        {
+            state = MovemenState.sprinting;
+            moveSpeed = sprintSpeed;
+        }
+        else if (isOnGround)
+        {
+            state = MovemenState.walking;
+            moveSpeed = walkSpeed;
+        }
+        else
+        {
+            state = MovemenState.air;
         }
     }
 
