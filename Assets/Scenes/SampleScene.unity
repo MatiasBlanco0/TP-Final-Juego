@@ -478,7 +478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffbf64bb0450b674aa02d5aec35405c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  walkSpeed: 7
+  sprintSpeed: 10
   groundDrag: 5
   jumpForce: 12
   jumpCooldown: 0.25
@@ -488,6 +489,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   orientation: {fileID: 652561912}
+  state: 0
 --- !u!54 &937518718
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -816,7 +818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070f969c4925a74438596be68c5939cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolucion: 1000000
+  resolucion: 10000
   rb: {fileID: 937518718}
 --- !u!114 &1993024584
 MonoBehaviour:
