@@ -56,7 +56,7 @@ public class WallRunning : MonoBehaviour
         wallJumpSideForce = 12;
         exitWallTime = 0.2f;
         useGravity = true;
-        gravityCounterForce = 5;
+        gravityCounterForce = 1.25f;
     }
 
     // Update is called once per frame
