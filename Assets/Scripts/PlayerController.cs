@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed;
     public float sprintSpeed;
     public float slideSpeed;
+    public float wallrunSpeed;
 
     float desiredMoveSpeed;
     float lastDesiredMoveSpeed;
@@ -54,12 +55,14 @@ public class PlayerController : MonoBehaviour
     {
         walking,
         sprinting,
+        wallrunning,
         crouching,
         sliding,
         air
     }
 
     public bool sliding;
+    public bool wallrunning;
 
     // Start is called before the first frame update
     void Start()
