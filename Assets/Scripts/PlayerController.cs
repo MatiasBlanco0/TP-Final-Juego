@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
         walkSpeed = 7;
         sprintSpeed = 10;
         slideSpeed = 30;
+        wallrunSpeed = 8.5f;
         speedIncreaseMultiplier = 1.5f;
         slopeIncreaseMultiplier = 2.5f;
         groundDrag = 7;
@@ -145,6 +146,12 @@ public class PlayerController : MonoBehaviour
 
     void StateHandler()
     {
+        if (wallrunning)
+        {
+            state = MovementState.wallrunning;
+            desiredMoveSpeed = wallrunSpeed;
+        }
+
         if (sliding)
         {
             state = MovementState.sliding;
