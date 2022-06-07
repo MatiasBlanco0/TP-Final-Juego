@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
         slopeIncreaseMultiplier = 2.5f;
         groundDrag = 7;
 
-        jumpForce = 12;
+        jumpForce = 11;
         jumpCooldown = 0.25f;
         airMultiplier = 0.4f;
 
@@ -246,7 +246,10 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
         }
-        rb.useGravity = !OnSlope();
+        if (!wallrunning)
+        {
+            rb.useGravity = !OnSlope();
+        }
     }
 
     void SpeedControl()
