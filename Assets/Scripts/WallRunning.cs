@@ -27,6 +27,11 @@ public class WallRunning : MonoBehaviour
     bool wallLeft;
     bool wallRight;
 
+    [Header("Exiting")]
+    bool exitingWall;
+    public float exitWallTime;
+    float exitWallTimer;
+
     [Header("References")]
     public Transform orientation;
     PlayerController playerController;
@@ -45,6 +50,7 @@ public class WallRunning : MonoBehaviour
         wallClimbSpeed = 3;
         wallJumpUpForce = 7;
         wallJumpSideForce = 12;
+        exitWallTime = 0.2f;
     }
 
     // Update is called once per frame
@@ -81,7 +87,7 @@ public class WallRunning : MonoBehaviour
         upwardsRunning = Input.GetKey(KeyCode.LeftShift);
         downwardsRunning = Input.GetKey(KeyCode.LeftControl);
 
-        if ((wallLeft || wallRight) && verticalInput > 0 && AboveGround())
+        if ((wallLeft || wallRight) && verticalInput > 0 && AboveGround() && !exitingWall)
         {
             if (!playerController.wallrunning)
             {
@@ -91,6 +97,23 @@ public class WallRunning : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 WallJump();
+            }
+        }
+        else if (exitingWall)
+        {
+            if (playerController.wallrunning)
+            {
+                StopWallRun();
+            }
+
+            if(exitWallTimer > 0)
+            {
+                exitWallTimer -= Time.deltaTime;
+            }
+
+            if(exitWallTimer <= 0)
+            {
+                exitingWall = false;
             }
         }
         else
@@ -145,6 +168,9 @@ public class WallRunning : MonoBehaviour
 
     void WallJump()
     {
+        exitingWall = true;
+        exitWallTimer = exitWallTime;
+
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
 
         Vector3 forceToApply = transform.up * wallJumpUpForce + wallNormal * wallJumpSideForce;
