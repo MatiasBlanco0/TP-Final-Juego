@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     [Header("Movement")]
     float moveSpeed;
     public float walkSpeed;
@@ -70,7 +69,7 @@ public class PlayerController : MonoBehaviour
         slideSpeed = 30;
         speedIncreaseMultiplier = 1.5f;
         slopeIncreaseMultiplier = 2.5f;
-        groundDrag = 4;
+        groundDrag = 7;
 
         jumpForce = 12;
         jumpCooldown = 0.25f;
@@ -85,6 +84,7 @@ public class PlayerController : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
         readyToJump = true;
 
         startYScale = transform.localScale.y;
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isOnGround = Physics.Raycast(transform.position, Vector3.down, playerHeight/2 + 0.2f, whatIsGround);
+        isOnGround = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
         MyInput();
         SpeedControl();
@@ -160,7 +160,8 @@ public class PlayerController : MonoBehaviour
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
-        }else if(isOnGround && Input.GetKey(KeyCode.LeftShift))
+        }
+        else if(isOnGround && Input.GetKey(KeyCode.LeftShift))
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
@@ -174,6 +175,7 @@ public class PlayerController : MonoBehaviour
         {
             state = MovementState.air;
         }
+
         if(Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4 && moveSpeed != 0)
         {
             StopAllCoroutines();
@@ -248,7 +250,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-
             Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
             if (flatVel.magnitude > moveSpeed)
