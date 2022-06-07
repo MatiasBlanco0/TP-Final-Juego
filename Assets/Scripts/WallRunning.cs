@@ -32,13 +32,26 @@ public class WallRunning : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
+
+        wallRunForce = 200;
+        maxWallRunTime = 1.5f;
+        wallCheckDistance = 0.7f;
+        minJumpHeight = 2;
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckForWall();
+        StateMachine();
+    }
 
+    void FixedUpdate()
+    {
+        if (playerController.wallrunning)
+        {
+            WallRunningMovement();
+        }
     }
 
     void CheckForWall()
@@ -59,22 +72,39 @@ public class WallRunning : MonoBehaviour
 
         if((wallLeft || wallRight) && verticalInput > 0 && AboveGround())
         {
-
+            if (!playerController.wallrunning)
+            {
+                StartWallRun();
+            }
+        }
+        else
+        {
+            if (playerController.wallrunning)
+            {
+                StopWallRun();
+            }
         }
     }
 
     void StartWallRun()
     {
-
+        playerController.wallrunning = true;
     }
 
     void WallRunningMovement()
     {
+        rb.useGravity = false;
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
+        Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
+
+        Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
+
+        rb.AddForce(wallForward * wallRunForce, ForceMode.Force);
     }
 
     void StopWallRun()
     {
-
+        playerController.wallrunning = false;
     }
 }
