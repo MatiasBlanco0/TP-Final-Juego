@@ -8,6 +8,8 @@ public class WallRunning : MonoBehaviour
     public LayerMask whatIsWall;
     public LayerMask whatIsGround;
     public float wallRunForce;
+    public float wallJumpUpForce;
+    public float wallJumpSideForce;
     public float wallClimbSpeed;
     public float maxWallRunTime;
     float wallRunTimer;
@@ -41,6 +43,8 @@ public class WallRunning : MonoBehaviour
         wallCheckDistance = 0.7f;
         minJumpHeight = 2;
         wallClimbSpeed = 3;
+        wallJumpUpForce = 7;
+        wallJumpSideForce = 12;
     }
 
     // Update is called once per frame
@@ -82,6 +86,11 @@ public class WallRunning : MonoBehaviour
             if (!playerController.wallrunning)
             {
                 StartWallRun();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                WallJump();
             }
         }
         else
@@ -132,5 +141,15 @@ public class WallRunning : MonoBehaviour
     void StopWallRun()
     {
         playerController.wallrunning = false;
+    }
+
+    void WallJump()
+    {
+        Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
+
+        Vector3 forceToApply = transform.up * wallJumpUpForce + wallNormal * wallJumpSideForce;
+
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.AddForce(forceToApply, ForceMode.Impulse);
     }
 }
