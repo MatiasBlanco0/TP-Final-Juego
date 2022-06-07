@@ -32,6 +32,10 @@ public class WallRunning : MonoBehaviour
     public float exitWallTime;
     float exitWallTimer;
 
+    [Header("Gravitiy")]
+    public bool useGravity;
+    public float gravityCounterForce;
+
     [Header("References")]
     public Transform orientation;
     PlayerController playerController;
@@ -44,13 +48,15 @@ public class WallRunning : MonoBehaviour
         playerController = GetComponent<PlayerController>();
 
         wallRunForce = 200;
-        maxWallRunTime = 1.5f;
+        maxWallRunTime = 0.7f;
         wallCheckDistance = 0.7f;
         minJumpHeight = 2;
         wallClimbSpeed = 3;
         wallJumpUpForce = 7;
         wallJumpSideForce = 12;
         exitWallTime = 0.2f;
+        useGravity = true;
+        gravityCounterForce = 5;
     }
 
     // Update is called once per frame
@@ -94,6 +100,17 @@ public class WallRunning : MonoBehaviour
                 StartWallRun();
             }
 
+            if(wallRunTimer > 0)
+            {
+                wallRunTimer -= Time.deltaTime;
+            }
+
+            if(wallRunTimer <= 0 && playerController.wallrunning)
+            {
+                exitingWall = true;
+                exitWallTimer = exitWallTime;
+            }
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 WallJump();
@@ -128,12 +145,15 @@ public class WallRunning : MonoBehaviour
     void StartWallRun()
     {
         playerController.wallrunning = true;
+
+        wallRunTimer = maxWallRunTime;
+
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
     }
 
     void WallRunningMovement()
     {
-        rb.useGravity = false;
-        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        rb.useGravity = useGravity;
 
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
 
@@ -158,6 +178,11 @@ public class WallRunning : MonoBehaviour
         if (!(wallLeft && horizontalInput > 0) && !(wallRight && horizontalInput < 0))
         {
             rb.AddForce(-wallNormal * 100, ForceMode.Force);
+        }
+
+        if (useGravity)
+        {
+            rb.AddForce(transform.up * gravityCounterForce, ForceMode.Force);
         }
     }
 
