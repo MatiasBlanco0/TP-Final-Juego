@@ -332,6 +332,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: plataforma
       objectReference: {fileID: 0}
+    - target: {fileID: 8572131274342060701, guid: d3ed5c587e0e37f40a3a72950e67ef2f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3ed5c587e0e37f40a3a72950e67ef2f, type: 3}
 --- !u!4 &171405179 stripped
@@ -652,6 +657,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: plataforma (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572131274342060701, guid: d3ed5c587e0e37f40a3a72950e67ef2f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3ed5c587e0e37f40a3a72950e67ef2f, type: 3}
@@ -1174,7 +1184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whatIsWall:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 512
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
@@ -2341,6 +2351,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: plataforma (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572131274342060701, guid: d3ed5c587e0e37f40a3a72950e67ef2f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3ed5c587e0e37f40a3a72950e67ef2f, type: 3}
