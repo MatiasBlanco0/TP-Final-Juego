@@ -8,9 +8,12 @@ public class WallRunning : MonoBehaviour
     public LayerMask whatIsWall;
     public LayerMask whatIsGround;
     public float wallRunForce;
+    public float wallClimbSpeed;
     public float maxWallRunTime;
     float wallRunTimer;
 
+    bool upwardsRunning;
+    bool downwardsRunning;
     float horizontalInput;
     float verticalInput;
 
@@ -37,6 +40,7 @@ public class WallRunning : MonoBehaviour
         maxWallRunTime = 1.5f;
         wallCheckDistance = 0.7f;
         minJumpHeight = 2;
+        wallClimbSpeed = 3;
     }
 
     // Update is called once per frame
@@ -70,7 +74,10 @@ public class WallRunning : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if((wallLeft || wallRight) && verticalInput > 0 && AboveGround())
+        upwardsRunning = Input.GetKey(KeyCode.LeftShift);
+        downwardsRunning = Input.GetKey(KeyCode.LeftControl);
+
+        if ((wallLeft || wallRight) && verticalInput > 0 && AboveGround())
         {
             if (!playerController.wallrunning)
             {
@@ -106,6 +113,20 @@ public class WallRunning : MonoBehaviour
         }
 
         rb.AddForce(wallForward * wallRunForce, ForceMode.Force);
+
+        if (upwardsRunning)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, wallClimbSpeed, rb.velocity.z);
+        }
+        if (downwardsRunning)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, -wallClimbSpeed, rb.velocity.z);
+        }
+
+        if (!(wallLeft && horizontalInput > 0) && !(wallRight && horizontalInput < 0))
+        {
+            rb.AddForce(-wallNormal * 100, ForceMode.Force);
+        }
     }
 
     void StopWallRun()
