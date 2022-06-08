@@ -1205,6 +1205,7 @@ MonoBehaviour:
   groundDrag: 7
   jumpForce: 11
   jumpCooldown: 0.25
+  doubleJumpCooldown: 0
   airMultiplier: 0.4
   crouchSpeed: 3.5
   crouchYScale: 0.5
@@ -1279,7 +1280,7 @@ MonoBehaviour:
   useGravity: 0
   gravityCounterForce: 0
   orientation: {fileID: 652561912}
-  camera: {fileID: 534669906}
+  playerCamera: {fileID: 534669906}
 --- !u!1 &940281911
 GameObject:
   m_ObjectHideFlags: 0
