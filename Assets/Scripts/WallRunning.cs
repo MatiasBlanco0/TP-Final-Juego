@@ -36,6 +36,10 @@ public class WallRunning : MonoBehaviour
     public bool useGravity;
     public float gravityCounterForce;
 
+    [Header("Input")]
+    public KeyCode upwardsRunningKey = KeyCode.LeftShift;
+    public KeyCode downwardsRunningKey = KeyCode.LeftControl;
+
     [Header("References")]
     public Transform orientation;
     PlayerController playerController;
@@ -90,8 +94,8 @@ public class WallRunning : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        upwardsRunning = Input.GetKey(KeyCode.LeftShift);
-        downwardsRunning = Input.GetKey(KeyCode.LeftControl);
+        upwardsRunning = Input.GetKey(upwardsRunningKey);
+        downwardsRunning = Input.GetKey(downwardsRunningKey);
 
         if ((wallLeft || wallRight) && verticalInput > 0 && AboveGround() && !exitingWall)
         {
@@ -111,7 +115,7 @@ public class WallRunning : MonoBehaviour
                 exitWallTimer = exitWallTime;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(playerController.jumpKey))
             {
                 WallJump();
             }
