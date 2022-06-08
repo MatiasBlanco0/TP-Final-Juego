@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     float desiredMoveSpeed;
     float lastDesiredMoveSpeed;
 
+    public float dashForce;
+
     public float speedIncreaseMultiplier;
     public float slopeIncreaseMultiplier;
 
@@ -76,6 +78,7 @@ public class PlayerController : MonoBehaviour
         wallrunSpeed = 8.5f;
         speedIncreaseMultiplier = 1.5f;
         slopeIncreaseMultiplier = 2.5f;
+        dashForce = 10f;
         groundDrag = 7;
 
         jumpForce = 9.5f;
@@ -139,6 +142,11 @@ public class PlayerController : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Dash();
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && readyToJump && isOnGround && !wallrunning)
         {
@@ -318,6 +326,11 @@ public class PlayerController : MonoBehaviour
     void ResetDoubleJump()
     {
         readyToDoubleJump = true;
+    }
+
+    void Dash()
+    {
+        rb.AddForce(orientation.forward * dashForce, ForceMode.Impulse);
     }
 
     public bool OnSlope()
