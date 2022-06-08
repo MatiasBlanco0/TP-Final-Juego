@@ -74,16 +74,16 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        walkSpeed = 7;
-        sprintSpeed = 10;
-        slideSpeed = 30;
+        walkSpeed = 7f;
+        sprintSpeed = 10f;
+        slideSpeed = 30f;
         wallrunSpeed = 8.5f;
         speedIncreaseMultiplier = 1.5f;
         slopeIncreaseMultiplier = 2.5f;
         dashForce = 100f;
         dashCooldown = 1f;
         readyToDash = true;
-        groundDrag = 7;
+        groundDrag = 7f;
 
         jumpForce = 9.5f;
         jumpCooldown = 0.25f;
@@ -92,9 +92,9 @@ public class PlayerController : MonoBehaviour
         crouchSpeed = 3.5f;
         crouchYScale = 0.5f;
 
-        maxSlopeAngle = 40;
+        maxSlopeAngle = 55f;
 
-        playerHeight = 2;
+        playerHeight = 2f;
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
