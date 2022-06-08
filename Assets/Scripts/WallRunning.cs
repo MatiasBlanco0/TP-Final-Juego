@@ -48,8 +48,8 @@ public class WallRunning : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
 
-        wallRunForce = 200;
-        maxWallRunTime = 0.7f;
+        wallRunForce = 200f;
+        maxWallRunTime = 1f;
         wallCheckDistance = 0.7f;
         minJumpHeight = 2;
         wallClimbSpeed = 3;
