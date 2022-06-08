@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
         wallrunSpeed = 8.5f;
         speedIncreaseMultiplier = 1.5f;
         slopeIncreaseMultiplier = 2.5f;
-        dashForce = 100f;
+        dashForce = 50f;
         dashCooldown = 1f;
         readyToDash = true;
         groundDrag = 7f;
@@ -156,7 +156,7 @@ public class PlayerController : MonoBehaviour
             Invoke(nameof(ResetDash), dashCooldown);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && readyToJump && isOnGround && !wallrunning)
+        if (Input.GetKey(KeyCode.Space) && readyToJump && isOnGround && !wallrunning)
         {
             readyToJump = false;
 
@@ -340,11 +340,11 @@ public class PlayerController : MonoBehaviour
     {
         if (OnSlope() && !exitingSlope)
         {
-            rb.AddForce(GetSlopeMoveDirection(orientation.forward) * dashForce, ForceMode.Impulse);
+            rb.AddForce(GetSlopeMoveDirection(moveDirection.normalized) * dashForce, ForceMode.Impulse);
         }
         else
         {
-            rb.AddForce(orientation.forward * dashForce, ForceMode.Impulse);
+            rb.AddForce(moveDirection.normalized * dashForce, ForceMode.Impulse);
         }
     }
 
