@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    bool readyToDoubleJump;
 
     [Header("Crouching")]
     public float crouchSpeed;
@@ -90,6 +91,7 @@ public class PlayerController : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
+        readyToDoubleJump = true;
 
         startYScale = transform.localScale.y;
     }
@@ -106,6 +108,7 @@ public class PlayerController : MonoBehaviour
         if (isOnGround)
         {
             rb.drag = groundDrag;
+            ResetDoubleJump();
         }
         else
         {
@@ -127,9 +130,15 @@ public class PlayerController : MonoBehaviour
         {
             readyToJump = false;
 
-            Jump();
+            Jump(true);
 
             Invoke(nameof(ResetJump),jumpCooldown);
+        }
+        else if(Input.GetKey(KeyCode.Space) && readyToDoubleJump && !isOnGround)
+        {
+            readyToDoubleJump = false;
+
+            Jump(false);
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -273,9 +282,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Jump()
+    void Jump(bool isNormalJump)
     {
-        exitingSlope = true;
+        if (isNormalJump)
+        {
+            exitingSlope = true;
+        }
 
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
@@ -287,6 +299,11 @@ public class PlayerController : MonoBehaviour
         readyToJump = true;
 
         exitingSlope = false;
+    }
+
+    void ResetDoubleJump()
+    {
+        readyToDoubleJump = true;
     }
 
     public bool OnSlope()
