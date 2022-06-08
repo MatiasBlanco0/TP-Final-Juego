@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float sprintSpeed;
     public float slideSpeed;
     public float wallrunSpeed;
+    public float maxYVelocity;
 
     float desiredMoveSpeed;
     float lastDesiredMoveSpeed;
@@ -84,9 +85,10 @@ public class PlayerController : MonoBehaviour
         sprintSpeed = 10f;
         slideSpeed = 30f;
         wallrunSpeed = 8.5f;
+        maxYVelocity = 30f;
         speedIncreaseMultiplier = 1.5f;
         slopeIncreaseMultiplier = 2.5f;
-        dashForce = 250f;
+        dashForce = 500f;
         dashCooldown = 1f;
         readyToDash = true;
         groundDrag = 7f;
@@ -299,6 +301,11 @@ public class PlayerController : MonoBehaviour
 
     void SpeedControl()
     {
+        if(rb.velocity.magnitude > maxYVelocity)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, maxYVelocity, rb.velocity.z);
+        }
+
         if (OnSlope() && !exitingSlope)
         {
             if (rb.velocity.magnitude > moveSpeed)
@@ -346,11 +353,11 @@ public class PlayerController : MonoBehaviour
     {
         if (OnSlope() && !exitingSlope)
         {
-            rb.AddForce(GetSlopeMoveDirection(moveDirection.normalized) * dashForce * Time.deltaTime, ForceMode.Impulse);
+            rb.AddForce(GetSlopeMoveDirection(moveDirection.normalized) * dashForce * 10f * Time.deltaTime, ForceMode.Impulse);
         }
         else
         {
-            rb.AddForce(moveDirection.normalized * dashForce * Time.deltaTime, ForceMode.Impulse);
+            rb.AddForce(moveDirection.normalized * dashForce * 10f * Time.deltaTime, ForceMode.Impulse);
         }
     }
 
