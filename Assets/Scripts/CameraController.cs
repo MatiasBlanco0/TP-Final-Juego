@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class CameraController : MonoBehaviour
 {
@@ -17,7 +16,6 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-
     }
 
     // Update is called once per frame
@@ -35,13 +33,13 @@ public class CameraController : MonoBehaviour
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
-    public void DoFov(float endValue)
+    public void DoFov(float fov)
     {
-        GetComponent<Camera>().DOFieldOfView(endValue, 0.25f);
+        GetComponent<Camera>().fieldOfView = fov;
     }
 
     public void DoTilt(float zTilt)
     {
-        transform.DOLocalRotate(new Vector3(0, 0, zTilt), 0.25f);
+        transform.eulerAngles = new Vector3(transform.localRotation.x, transform.localRotation.y, zTilt);
     }
 }
