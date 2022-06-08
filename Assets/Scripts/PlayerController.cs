@@ -109,6 +109,13 @@ public class PlayerController : MonoBehaviour
         SpeedControl();
         StateHandler();
 
+        if (wallrunning)
+        {
+            if (!readyToDoubleJump)
+            {
+                ResetDoubleJump();
+            }
+        }
         if (isOnGround)
         {
             rb.drag = groundDrag;
@@ -145,10 +152,7 @@ public class PlayerController : MonoBehaviour
         {
             readyToDoubleJump = false;
 
-            if (!wallRunning.exitingWall)
-            {
-                Jump(false);
-            }
+            Jump(false);
         }
 
         if (Input.GetKeyDown(KeyCode.C))
