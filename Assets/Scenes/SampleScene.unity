@@ -957,6 +957,7 @@ MonoBehaviour:
   sensX: 400
   sensY: 400
   orientation: {fileID: 652561912}
+  camHolder: {fileID: 1964030963}
 --- !u!1001 &541177012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1275,7 +1276,10 @@ MonoBehaviour:
   wallCheckDistance: 0
   minJumpHeight: 0
   exitWallTime: 0
+  useGravity: 0
+  gravityCounterForce: 0
   orientation: {fileID: 652561912}
+  camera: {fileID: 534669906}
 --- !u!1 &940281911
 GameObject:
   m_ObjectHideFlags: 0
