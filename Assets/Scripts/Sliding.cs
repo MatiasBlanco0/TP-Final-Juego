@@ -18,6 +18,8 @@ public class Sliding : MonoBehaviour
     public float slideYScale;
     float startYScale;
 
+    [Header("Inputs")]
+    public KeyCode slideKey = KeyCode.LeftControl;
     float horizontalInput;
     float verticalInput;
 
@@ -40,12 +42,12 @@ public class Sliding : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.LeftControl) && (horizontalInput != 0 || verticalInput != 0))
+        if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0))
         {
             StartSlide();
         }
 
-        if(Input.GetKeyUp(KeyCode.LeftControl) && playerController.sliding)
+        if(Input.GetKeyUp(slideKey) && playerController.sliding)
         {
             StopSlide();
         }
