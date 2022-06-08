@@ -41,7 +41,9 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
     bool isOnGround;
 
+    [Header("References")]
     public Transform orientation;
+    WallRunning wallRunning;
 
     float horizontalInput;
     float verticalInput;
@@ -76,7 +78,7 @@ public class PlayerController : MonoBehaviour
         slopeIncreaseMultiplier = 2.5f;
         groundDrag = 7;
 
-        jumpForce = 11;
+        jumpForce = 9.5f;
         jumpCooldown = 0.25f;
         airMultiplier = 0.4f;
 
@@ -89,6 +91,8 @@ public class PlayerController : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
+        wallRunning = GetComponent<WallRunning>();
 
         readyToJump = true;
         readyToDoubleJump = true;
@@ -108,7 +112,10 @@ public class PlayerController : MonoBehaviour
         if (isOnGround)
         {
             rb.drag = groundDrag;
-            ResetDoubleJump();
+            if (!readyToDoubleJump)
+            {
+                ResetDoubleJump();
+            }
         }
         else
         {
@@ -126,7 +133,7 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.Space) && readyToJump && isOnGround)
+        if (Input.GetKeyDown(KeyCode.Space) && readyToJump && isOnGround)
         {
             readyToJump = false;
 
@@ -134,11 +141,14 @@ public class PlayerController : MonoBehaviour
 
             Invoke(nameof(ResetJump),jumpCooldown);
         }
-        else if(Input.GetKey(KeyCode.Space) && readyToDoubleJump && !isOnGround)
+        else if(Input.GetKeyDown(KeyCode.Space) && readyToDoubleJump && !isOnGround)
         {
             readyToDoubleJump = false;
 
-            Jump(false);
+            if (!wallRunning.exitingWall)
+            {
+                Jump(false);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.C))
