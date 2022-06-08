@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space) && readyToJump && isOnGround)
+        if (Input.GetKeyDown(KeyCode.Space) && readyToJump && isOnGround && !wallrunning)
         {
             readyToJump = false;
 
@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
 
             Invoke(nameof(ResetJump),jumpCooldown);
         }
-        else if(Input.GetKeyDown(KeyCode.Space) && readyToDoubleJump && !isOnGround && !wallRunning.exitingWall)
+        else if(Input.GetKeyDown(KeyCode.Space) && readyToDoubleJump && !isOnGround && !wallrunning)
         {
             readyToDoubleJump = false;
 
