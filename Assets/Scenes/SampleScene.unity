@@ -1200,12 +1200,13 @@ MonoBehaviour:
   sprintSpeed: 10
   slideSpeed: 0
   wallrunSpeed: 0
+  dashForce: 0
+  dashCooldown: 0
   speedIncreaseMultiplier: 0
   slopeIncreaseMultiplier: 0
   groundDrag: 7
   jumpForce: 11
   jumpCooldown: 0.25
-  doubleJumpCooldown: 0
   airMultiplier: 0.4
   crouchSpeed: 3.5
   crouchYScale: 0.5
@@ -1276,6 +1277,7 @@ MonoBehaviour:
   maxWallRunTime: 0
   wallCheckDistance: 0
   minJumpHeight: 0
+  exitingWall: 0
   exitWallTime: 0
   useGravity: 0
   gravityCounterForce: 0
@@ -2207,6 +2209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 070f969c4925a74438596be68c5939cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  txtSpeed: {fileID: 1316890919}
+  txtTimer: {fileID: 2050626624}
   resolucion: 10000
   rb: {fileID: 937518718}
 --- !u!114 &1993024584
