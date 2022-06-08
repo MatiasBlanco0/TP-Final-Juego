@@ -45,6 +45,12 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
     bool isOnGround;
 
+    [Header("Inputs")]
+    public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode crouchKey = KeyCode.C;
+    public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode dashKey = KeyCode.Q;
+
     [Header("References")]
     public Transform orientation;
     WallRunning wallRunning;
@@ -80,12 +86,12 @@ public class PlayerController : MonoBehaviour
         wallrunSpeed = 8.5f;
         speedIncreaseMultiplier = 1.5f;
         slopeIncreaseMultiplier = 2.5f;
-        dashForce = 50f;
+        dashForce = 250f;
         dashCooldown = 1f;
         readyToDash = true;
         groundDrag = 7f;
 
-        jumpForce = 9.5f;
+        jumpForce = 600f;
         jumpCooldown = 0.25f;
         airMultiplier = 0.4f;
 
@@ -147,7 +153,7 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Q) && readyToDash)
+        if (Input.GetKeyDown(dashKey) && readyToDash)
         {
             readyToDash = false;
 
@@ -156,7 +162,7 @@ public class PlayerController : MonoBehaviour
             Invoke(nameof(ResetDash), dashCooldown);
         }
 
-        if (Input.GetKey(KeyCode.Space) && readyToJump && isOnGround && !wallrunning)
+        if (Input.GetKey(jumpKey) && readyToJump && isOnGround && !wallrunning)
         {
             readyToJump = false;
 
@@ -164,20 +170,20 @@ public class PlayerController : MonoBehaviour
 
             Invoke(nameof(ResetJump),jumpCooldown);
         }
-        else if(Input.GetKeyDown(KeyCode.Space) && readyToDoubleJump && !isOnGround && !wallrunning)
+        else if(Input.GetKeyDown(jumpKey) && readyToDoubleJump && !isOnGround && !wallrunning)
         {
             readyToDoubleJump = false;
 
             Jump(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(crouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
         }
 
-        if (Input.GetKeyUp(KeyCode.C))
+        if (Input.GetKeyUp(crouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
         }
@@ -205,12 +211,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        else if (Input.GetKey(KeyCode.C))
+        else if (Input.GetKey(crouchKey))
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
         }
-        else if(isOnGround && Input.GetKey(KeyCode.LeftShift))
+        else if(isOnGround && Input.GetKey(sprintKey))
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
@@ -321,7 +327,7 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(transform.up * jumpForce * Time.deltaTime, ForceMode.Impulse);
     }
 
     void ResetJump()
@@ -340,11 +346,11 @@ public class PlayerController : MonoBehaviour
     {
         if (OnSlope() && !exitingSlope)
         {
-            rb.AddForce(GetSlopeMoveDirection(moveDirection.normalized) * dashForce, ForceMode.Impulse);
+            rb.AddForce(GetSlopeMoveDirection(moveDirection.normalized) * dashForce * Time.deltaTime, ForceMode.Impulse);
         }
         else
         {
-            rb.AddForce(moveDirection.normalized * dashForce, ForceMode.Impulse);
+            rb.AddForce(moveDirection.normalized * dashForce * Time.deltaTime, ForceMode.Impulse);
         }
     }
 
