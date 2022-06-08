@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
 
             Invoke(nameof(ResetJump),jumpCooldown);
         }
-        else if(Input.GetKeyDown(KeyCode.Space) && readyToDoubleJump && !isOnGround)
+        else if(Input.GetKeyDown(KeyCode.Space) && readyToDoubleJump && !isOnGround && !wallRunning.exitingWall)
         {
             readyToDoubleJump = false;
 
