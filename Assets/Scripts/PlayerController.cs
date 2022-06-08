@@ -149,6 +149,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) && readyToDash)
         {
+            readyToDash = false;
+
             Dash();
 
             Invoke(nameof(ResetDash), dashCooldown);
@@ -336,9 +338,14 @@ public class PlayerController : MonoBehaviour
 
     void Dash()
     {
-        readyToDash = false;
-
-        rb.AddForce(orientation.forward * dashForce, ForceMode.Impulse);
+        if (OnSlope() && !exitingSlope)
+        {
+            rb.AddForce(GetSlopeMoveDirection(orientation.forward) * dashForce, ForceMode.Impulse);
+        }
+        else
+        {
+            rb.AddForce(orientation.forward * dashForce, ForceMode.Impulse);
+        }
     }
 
     void ResetDash()
