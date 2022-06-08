@@ -88,8 +88,8 @@ public class PlayerController : MonoBehaviour
         maxYVelocity = 30f;
         speedIncreaseMultiplier = 1.5f;
         slopeIncreaseMultiplier = 2.5f;
-        dashForce = 500f;
-        dashCooldown = 1f;
+        dashForce = 100f;
+        dashCooldown = 0.75f;
         readyToDash = true;
         groundDrag = 7f;
 
@@ -301,7 +301,7 @@ public class PlayerController : MonoBehaviour
 
     void SpeedControl()
     {
-        if(rb.velocity.magnitude > maxYVelocity)
+        if(rb.velocity.y > maxYVelocity)
         {
             rb.velocity = new Vector3(rb.velocity.x, maxYVelocity, rb.velocity.z);
         }
@@ -357,7 +357,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            rb.AddForce(moveDirection.normalized * dashForce * 10f * Time.deltaTime, ForceMode.Impulse);
+            rb.AddForce(moveDirection.normalized * dashForce * 100f * Time.deltaTime, ForceMode.Impulse);
         }
     }
 
