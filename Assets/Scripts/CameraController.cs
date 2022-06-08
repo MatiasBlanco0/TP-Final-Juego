@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     public float sensY;
 
     public Transform orientation;
+    public Transform camHolder;
 
     float xRotation;
     float yRotation;
@@ -30,7 +31,7 @@ public class CameraController : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f,90f);
 
-        transform.rotation = Quaternion.Euler(xRotation,yRotation,0);
+       camHolder.rotation = Quaternion.Euler(xRotation,yRotation,0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
