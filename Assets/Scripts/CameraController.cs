@@ -32,14 +32,4 @@ public class CameraController : MonoBehaviour
        camHolder.rotation = Quaternion.Euler(xRotation,yRotation,0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
-
-    public void DoFov(float fov)
-    {
-        GetComponent<Camera>().fieldOfView = fov;
-    }
-
-    public void DoTilt(float zTilt)
-    {
-        transform.eulerAngles = new Vector3(transform.localRotation.x, transform.localRotation.y, zTilt);
-    }
 }
