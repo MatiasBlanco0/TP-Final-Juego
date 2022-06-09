@@ -88,12 +88,12 @@ public class PlayerController : MonoBehaviour
         maxYVelocity = 30f;
         speedIncreaseMultiplier = 1.5f;
         slopeIncreaseMultiplier = 2.5f;
-        dashForce = 100f;
+        dashForce = 25f;
         dashCooldown = 0.75f;
         readyToDash = true;
         groundDrag = 7f;
 
-        jumpForce = 600f;
+        jumpForce = 300f;
         jumpCooldown = 0.25f;
         airMultiplier = 0.4f;
 
