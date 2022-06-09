@@ -380,4 +380,20 @@ public class PlayerController : MonoBehaviour
     {
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.tag == "Limit")
+        {
+            transform.position = new Vector3(0, 0, 0);
+        }
+    }
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "Meta")
+        {
+            //ganar
+            Debug.Log("Ganaste");
+        }
+    }
 }
