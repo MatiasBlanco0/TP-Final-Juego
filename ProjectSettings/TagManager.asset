@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Limit
+  - Meta
   layers:
   - Default
   - TransparentFX
