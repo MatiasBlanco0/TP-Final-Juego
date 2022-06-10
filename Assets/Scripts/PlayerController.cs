@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
             Invoke(nameof(ResetDash), dashCooldown);
         }
 
-        if (Input.GetKey(jumpKey) && readyToJump && isOnGround && !wallrunning)
+        if (Input.GetKeyDown(jumpKey) && readyToJump && isOnGround && !wallrunning)
         {
             readyToJump = false;
 
