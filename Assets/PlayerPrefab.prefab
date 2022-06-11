@@ -662,6 +662,7 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: 658184b7e5590834d9265d3ff279e79e, type: 3}
   audioSource: {fileID: 0}
   orientation: {fileID: 3441008154293397684}
+  confeti: {fileID: 8489609673439656946, guid: 933c62138940c3a40841d3ce80c617e2, type: 3}
   state: 0
   sliding: 0
   wallrunning: 0
