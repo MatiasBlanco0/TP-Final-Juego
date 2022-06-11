@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     public Transform orientation;
     WallRunning wallRunning;
+    public GameObject confeti;
 
     float horizontalInput;
     float verticalInput;
@@ -403,7 +404,13 @@ public class PlayerController : MonoBehaviour
     {
         if (col.gameObject.tag == "Meta")
         {
-            //ganar
+            
+            for(int i = 0; i <= 5;i++)
+            {
+                GameObject clon = Instantiate(confeti, this.transform.position + new Vector3(Random.Range(0.5f, 2f), Random.Range(0.5f, 2f), Random.Range(0.5f, 2f)), Quaternion.Euler(0,90,0));
+
+                Destroy(clon, 5f);
+            }
             Debug.Log("Ganaste");
         }
     }
