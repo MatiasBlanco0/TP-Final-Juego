@@ -52,6 +52,11 @@ public class PlayerController : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode dashKey = KeyCode.Q;
 
+    [Header("Sounds")]
+    public AudioClip dashSound;
+    public AudioClip jumpSound;
+    public AudioSource audioSource;
+
     [Header("References")]
     public Transform orientation;
     WallRunning wallRunning;
@@ -89,7 +94,7 @@ public class PlayerController : MonoBehaviour
         speedIncreaseMultiplier = 1.5f;
         slopeIncreaseMultiplier = 2.5f;
         dashForce = 25f;
-        dashCooldown = 0.75f;
+        dashCooldown = 0.75f;   
         readyToDash = true;
         groundDrag = 7f;
 
@@ -108,6 +113,8 @@ public class PlayerController : MonoBehaviour
         rb.freezeRotation = true;
 
         wallRunning = GetComponent<WallRunning>();
+
+        audioSource = GetComponent<AudioSource>();
 
         readyToJump = true;
         readyToDoubleJump = true;
@@ -335,6 +342,8 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce * Time.deltaTime, ForceMode.Impulse);
+
+        audioSource.PlayOneShot(jumpSound);
     }
 
     void ResetJump()
@@ -359,6 +368,8 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * dashForce * 100f * Time.deltaTime, ForceMode.Impulse);
         }
+
+        audioSource.PlayOneShot(dashSound);
     }
 
     void ResetDash()
