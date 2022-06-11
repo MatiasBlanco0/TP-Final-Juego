@@ -94,12 +94,12 @@ public class PlayerController : MonoBehaviour
         maxYVelocity = 30f;
         speedIncreaseMultiplier = 1.5f;
         slopeIncreaseMultiplier = 2.5f;
-        dashForce = 25f;
+        dashForce = 3f;
         dashCooldown = 0.75f;   
         readyToDash = true;
         groundDrag = 7f;
 
-        jumpForce = 300f;
+        jumpForce = 11f;
         jumpCooldown = 0.25f;
         airMultiplier = 0.4f;
 
@@ -342,7 +342,7 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        rb.AddForce(transform.up * jumpForce * Time.deltaTime, ForceMode.Impulse);
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 
         audioSource.PlayOneShot(jumpSound);
     }
@@ -363,14 +363,17 @@ public class PlayerController : MonoBehaviour
     {
         if (OnSlope() && !exitingSlope)
         {
-            rb.AddForce(GetSlopeMoveDirection(moveDirection.normalized) * dashForce * 10f * Time.deltaTime, ForceMode.Impulse);
+            rb.AddForce(GetSlopeMoveDirection(moveDirection.normalized) * dashForce * 10f, ForceMode.Impulse);
         }
         else
         {
-            rb.AddForce(moveDirection.normalized * dashForce * 100f * Time.deltaTime, ForceMode.Impulse);
+            rb.AddForce(moveDirection.normalized * dashForce * 100f, ForceMode.Impulse);
         }
 
-        audioSource.PlayOneShot(dashSound);
+        if (moveDirection != Vector3.zero)
+        {
+            audioSource.PlayOneShot(dashSound);
+        }
     }
 
     void ResetDash()
@@ -407,7 +410,7 @@ public class PlayerController : MonoBehaviour
             
             for(int i = 0; i <= 5;i++)
             {
-                GameObject clon = Instantiate(confeti, this.transform.position + new Vector3(Random.Range(0.5f, 2f), Random.Range(0.5f, 2f), Random.Range(0.5f, 2f)), Quaternion.Euler(0,90,0));
+                GameObject clon = Instantiate(confeti, this.transform.position + new Vector3(Random.Range(1f, 5f), -0.75f, Random.Range(1f, 5f)), Quaternion.Euler(-90,0,0));
 
                 Destroy(clon, 5f);
             }
