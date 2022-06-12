@@ -55,12 +55,14 @@ public class PlayerController : MonoBehaviour
     [Header("Sounds")]
     public AudioClip dashSound;
     public AudioClip jumpSound;
+    public AudioClip winSound;
     public AudioSource audioSource;
 
     [Header("References")]
     public Transform orientation;
     WallRunning wallRunning;
     public GameObject confeti;
+    public UIController uiController;
 
     float horizontalInput;
     float verticalInput;
@@ -126,36 +128,42 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isOnGround = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        if (uiController.countdown <= 0)
+        {
+            isOnGround = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
-        MyInput();
-        SpeedControl();
-        StateHandler();
+            MyInput();
+            SpeedControl();
+            StateHandler();
 
-        if (wallrunning)
-        {
-            if (!readyToDoubleJump)
+            if (wallrunning)
             {
-                ResetDoubleJump();
+                if (!readyToDoubleJump)
+                {
+                    ResetDoubleJump();
+                }
             }
-        }
-        if (isOnGround)
-        {
-            rb.drag = groundDrag;
-            if (!readyToDoubleJump)
+            if (isOnGround)
             {
-                ResetDoubleJump();
+                rb.drag = groundDrag;
+                if (!readyToDoubleJump)
+                {
+                    ResetDoubleJump();
+                }
             }
-        }
-        else
-        {
-            rb.drag = 0;
+            else
+            {
+                rb.drag = 0;
+            }
         }
     }
 
     void FixedUpdate()
     {
-        MovePlayer();
+        if (uiController.countdown <= 0)
+        {
+            MovePlayer();
+        }
     }
 
     void MyInput()
@@ -416,6 +424,8 @@ public class PlayerController : MonoBehaviour
 
                 Destroy(clon, 5f);
             }
+
+            audioSource.PlayOneShot(winSound);
             Debug.Log("Ganaste");
         }
     }
