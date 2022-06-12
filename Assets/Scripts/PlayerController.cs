@@ -343,8 +343,10 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-
-        audioSource.PlayOneShot(jumpSound);
+        if (!isNormalJump)
+        {
+            audioSource.PlayOneShot(jumpSound);
+        }
     }
 
     void ResetJump()
