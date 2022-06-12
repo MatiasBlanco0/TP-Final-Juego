@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    public GameObject countdown;
+    public GameObject hud;
     public Text txtSpeed;
     public Text txtTimer;
     public int resolucion;
