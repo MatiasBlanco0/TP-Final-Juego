@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (uiController.countdown <= 0 || !won)
+        if (uiController.countdown <= 0 && !won)
         {
             isOnGround = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (uiController.countdown <= 0 || !won)
+        if (uiController.countdown <= 0 && !won)
         {
             MovePlayer();
         }
