@@ -9,6 +9,7 @@ public class Sliding : MonoBehaviour
     public Transform playerObj;
     Rigidbody rb;
     PlayerController playerController;
+    public UIController uiController;
 
     [Header("Sliding")]
     public float maxSlideTime;
@@ -39,7 +40,7 @@ public class Sliding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!playerController.won)
+        if (!playerController.won && uiController.countdown <= 0)
         {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
@@ -58,7 +59,7 @@ public class Sliding : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (playerController.sliding)
+        if (playerController.sliding && !playerController.won && uiController.countdown <= 0)
         {
             SlidingMovement();
         }
