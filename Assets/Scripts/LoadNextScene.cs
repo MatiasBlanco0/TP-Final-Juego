@@ -22,15 +22,19 @@ public class LoadNextScene : MonoBehaviour
             if(timer <= 0)
             {
                 string sceneName = SceneManager.GetActiveScene().name;
-                if(sceneName == "Sandbox")
+                Cursor.lockState = CursorLockMode.None;
+                if (sceneName == "Sandbox")
                 {
                     SceneManager.LoadScene("Menu");
                 }
-                int lvlNum = int.Parse(sceneName[-1].ToString());
+                else
+                {
+                    int lvlNum = int.Parse(sceneName[6].ToString());
 
-                string nextLVLName = sceneName.Substring(0, 5) + lvlNum.ToString();
+                    string nextLVLName = sceneName.Substring(0, 5) + lvlNum.ToString();
 
-                SceneManager.LoadScene(nextLVLName);
+                    SceneManager.LoadScene(nextLVLName);
+                }
             }
             else
             {
