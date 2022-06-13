@@ -34,6 +34,7 @@ public class LoadNextScene : MonoBehaviour
             float miliseconds = (uiController.timeElapssed * 1000) - (Mathf.Floor(uiController.timeElapssed - (uiController.timeElapssed / 60)) * 1000) - ((uiController.timeElapssed / 60) * 1000);
             string text = string.Format("{0:0}:{1:00}:{2:000}", Mathf.Floor(uiController.timeElapssed / 60), Mathf.Floor(uiController.timeElapssed - (Mathf.Floor(uiController.timeElapssed / 60)) * 60), miliseconds);
             txtFinalTime.text = text;
+
             winScreen.SetActive(true);
             
             Cursor.lockState = CursorLockMode.None;
