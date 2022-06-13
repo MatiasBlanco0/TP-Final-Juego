@@ -58,6 +58,9 @@ public class PlayerController : MonoBehaviour
     public AudioClip winSound;
     public AudioSource audioSource;
 
+    [Header("Win")]
+    public bool won = false;
+
     [Header("References")]
     public Transform orientation;
     WallRunning wallRunning;
@@ -128,7 +131,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (uiController.countdown <= 0)
+        if (uiController.countdown <= 0 || !won)
         {
             isOnGround = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
@@ -160,7 +163,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (uiController.countdown <= 0)
+        if (uiController.countdown <= 0 || !won)
         {
             MovePlayer();
         }
@@ -417,10 +420,11 @@ public class PlayerController : MonoBehaviour
     {
         if (col.gameObject.tag == "Meta")
         {
-            
+            won = true;
+
             for(int i = 0; i <= 5;i++)
             {
-                GameObject clon = Instantiate(confeti, this.transform.position + new Vector3(Random.Range(1f, 5f), -0.75f, Random.Range(1f, 5f)), Quaternion.Euler(-90,0,0));
+                GameObject clon = Instantiate(confeti, this.transform.position + new Vector3(Random.Range(-5f, 5f), -1f, Random.Range(-5f, 5f)), Quaternion.Euler(-90,0,0));
 
                 Destroy(clon, 5f);
             }
