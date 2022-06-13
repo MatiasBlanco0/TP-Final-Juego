@@ -109,6 +109,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1916212005420836136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6562517329817188432}
+  m_Layer: 0
+  m_Name: WinCameraPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6562517329817188432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916212005420836136}
+  m_LocalRotation: {x: 0.24649584, y: -0.17844668, z: 0.046230808, w: 0.9514512}
+  m_LocalPosition: {x: 3.6678658, y: 5.6221495, z: -9.434293}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3441008154545308464}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 17.241001, y: 0, z: 0}
 --- !u!1 &2810764955811603714
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,6 +459,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraPosition: {fileID: 3441008154108056161}
+  winCameraPosition: {fileID: 6562517329817188432}
+  playerController: {fileID: 3441008154545308465}
 --- !u!1 &3441008153678721394
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,6 +759,7 @@ MonoBehaviour:
   sensY: 400
   orientation: {fileID: 3441008154293397684}
   camHolder: {fileID: 3441008153491447487}
+  playerController: {fileID: 3441008154545308465}
 --- !u!1 &3441008154293397691
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,6 +825,7 @@ Transform:
   - {fileID: 3441008154293397684}
   - {fileID: 3441008154108056161}
   - {fileID: 3441008153948578305}
+  - {fileID: 6562517329817188432}
   m_Father: {fileID: 3368477886017023096}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -851,6 +885,7 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: 658184b7e5590834d9265d3ff279e79e, type: 3}
   winSound: {fileID: 8300000, guid: e8dc0b67c9bf1d0459ab3ceb88b98b26, type: 3}
   audioSource: {fileID: 0}
+  won: 0
   orientation: {fileID: 3441008154293397684}
   confeti: {fileID: 8489609673439656946, guid: 933c62138940c3a40841d3ce80c617e2, type: 3}
   uiController: {fileID: 3441008153486885131}
