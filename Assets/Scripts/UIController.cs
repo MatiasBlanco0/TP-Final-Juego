@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     public float timeElapssed = 0;
     public Text txtTimer;
 
+    public PlayerController playerController;
     public int resolution;
     public Rigidbody rb;
     // Start is called before the first frame update
@@ -36,7 +37,7 @@ public class UIController : MonoBehaviour
             timeElapssed += Time.deltaTime;
         }
 
-        if(countdown <= 0)
+        if(countdown <= 0 && !playerController.won)
         {
             hud.SetActive(true);
             countdownObj.SetActive(false);
