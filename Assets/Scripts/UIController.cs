@@ -11,7 +11,7 @@ public class UIController : MonoBehaviour
 
     public GameObject hud;
     public Text txtSpeed;
-    float timeElapssed = 0;
+    public float timeElapssed = 0;
     public Text txtTimer;
 
     public int resolution;
