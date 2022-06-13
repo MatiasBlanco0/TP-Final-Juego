@@ -39,17 +39,20 @@ public class Sliding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-
-        if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0))
+        if (!playerController.won)
         {
-            StartSlide();
-        }
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetKeyUp(slideKey) && playerController.sliding)
-        {
-            StopSlide();
+            if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0))
+            {
+                StartSlide();
+            }
+
+            if (Input.GetKeyUp(slideKey) && playerController.sliding)
+            {
+                StopSlide();
+            }
         }
     }
 
