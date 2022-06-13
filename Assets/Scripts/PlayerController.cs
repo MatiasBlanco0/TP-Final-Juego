@@ -429,12 +429,9 @@ public class PlayerController : MonoBehaviour
             for(int i = 0; i <= 5;i++)
             {
                 GameObject clon = Instantiate(confeti, this.transform.position + new Vector3(Random.Range(-5f, 5f), -1f, Random.Range(-5f, 5f)), Quaternion.Euler(-90,0,0));
-
-                Destroy(clon, 5f);
             }
 
             audioSource.PlayOneShot(winSound);
-            Debug.Log("Ganaste");
         }
     }
 }
