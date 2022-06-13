@@ -167,6 +167,10 @@ public class PlayerController : MonoBehaviour
         {
             MovePlayer();
         }
+        else
+        {
+            rb.velocity -= new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        }
     }
 
     void MyInput()
