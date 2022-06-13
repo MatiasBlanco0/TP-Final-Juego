@@ -2,19 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LoadNextScene : MonoBehaviour
 {
     public GameObject winScreen;
+    public Text txtFinalTime;
     public GameObject btnNextLVL;
+    public GameObject hud;
 
     public PlayerController playerController;
-    float timer = 5f;
+    public UIController uiController;
+
+    string sceneName;
 
     // Start is called before the first frame update
     void Start()
     {
         winScreen.SetActive(false);
+
+        sceneName = SceneManager.GetActiveScene().name;
     }
 
     // Update is called once per frame
@@ -22,27 +29,29 @@ public class LoadNextScene : MonoBehaviour
     {
         if (playerController.won)
         {
+            hud.SetActive(false);
+
+            float miliseconds = (uiController.timeElapssed * 1000) - (Mathf.Floor(uiController.timeElapssed - (uiController.timeElapssed / 60)) * 1000) - ((uiController.timeElapssed / 60) * 1000);
+            string text = string.Format("{0:0}:{1:00}:{2:000}", Mathf.Floor(uiController.timeElapssed / 60), Mathf.Floor(uiController.timeElapssed - (Mathf.Floor(uiController.timeElapssed / 60)) * 60), miliseconds);
+            txtFinalTime.text = text;
             winScreen.SetActive(true);
+            
+            Cursor.lockState = CursorLockMode.None;
+
+            if (sceneName == "Sandbox")
+            {
+                btnNextLVL.SetActive(false);
+            }
         }
     }
 
     public void LoadNextLevel()
     {
-        string sceneName = SceneManager.GetActiveScene().name;
-        Cursor.lockState = CursorLockMode.None;
+        int lvlNum = int.Parse(sceneName[6].ToString());
 
-        if(sceneName == "Sandbox")
-        {
-            btnNextLVL.SetActive(false);
-        }
-        else
-        {
-            int lvlNum = int.Parse(sceneName[6].ToString());
+        string nextLVLName = sceneName.Substring(0, 5) + lvlNum.ToString();
 
-            string nextLVLName = sceneName.Substring(0, 5) + lvlNum.ToString();
-
-            SceneManager.LoadScene(nextLVLName);
-        }
+        SceneManager.LoadScene(nextLVLName);
     }
 
     public void LoadMenu()
