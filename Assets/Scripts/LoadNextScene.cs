@@ -53,7 +53,14 @@ public class LoadNextScene : MonoBehaviour
         string nextLVLName = sceneName.Substring(0, 5) + lvlNum.ToString();
         Debug.Log(nextLVLName);
 
-        SceneManager.LoadScene(nextLVLName);
+        if (SceneUtility.GetBuildIndexByScenePath(nextLVLName) != -1)
+        {
+            SceneManager.LoadScene(nextLVLName);
+        }
+        else
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
 
     public void LoadMenu()
