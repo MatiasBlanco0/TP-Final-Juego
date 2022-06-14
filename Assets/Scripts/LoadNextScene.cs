@@ -48,9 +48,10 @@ public class LoadNextScene : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        int lvlNum = int.Parse(sceneName[6].ToString());
+        int lvlNum = int.Parse(sceneName[5].ToString()) + 1;
 
         string nextLVLName = sceneName.Substring(0, 5) + lvlNum.ToString();
+        Debug.Log(nextLVLName);
 
         SceneManager.LoadScene(nextLVLName);
     }
