@@ -45,12 +45,12 @@ public class Sliding : MonoBehaviour
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
 
-            if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0))
+            if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0) && !playerController.wallrunning)
             {
                 StartSlide();
             }
 
-            if (Input.GetKeyUp(slideKey) && playerController.sliding)
+            if (Input.GetKeyUp(slideKey) && playerController.sliding && !playerController.wallrunning)
             {
                 StopSlide();
             }
