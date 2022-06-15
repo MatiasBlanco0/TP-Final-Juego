@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     float horizontalInput;
     float verticalInput;
 
-    Vector3 moveDirection;
+    Vector3 moveDirection = Vector3.zero;
 
     Rigidbody rb;
 
@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(dashKey) && readyToDash)
+        if (Input.GetKeyDown(dashKey) && readyToDash && (moveDirection != Vector3.zero))
         {
             readyToDash = false;
 
@@ -378,17 +378,16 @@ public class PlayerController : MonoBehaviour
 
     void Dash()
     {
-        if (OnSlope() && !exitingSlope)
-        {
-            rb.AddForce(GetSlopeMoveDirection(moveDirection.normalized) * dashForce * 10f, ForceMode.Impulse);
-        }
-        else
-        {
-            rb.AddForce(moveDirection.normalized * dashForce * 100f, ForceMode.Impulse);
-        }
-
         if (moveDirection != Vector3.zero)
         {
+            if (OnSlope() && !exitingSlope)
+            {
+                rb.AddForce(GetSlopeMoveDirection(moveDirection.normalized) * dashForce * 10f, ForceMode.Impulse);
+            }
+            else
+            {
+                rb.AddForce(moveDirection.normalized * dashForce * 100f, ForceMode.Impulse);
+            }
             audioSource.PlayOneShot(dashSound);
         }
     }
