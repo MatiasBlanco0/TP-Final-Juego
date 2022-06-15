@@ -51,7 +51,6 @@ public class LoadNextScene : MonoBehaviour
         int lvlNum = int.Parse(sceneName[5].ToString()) + 1;
 
         string nextLVLName = sceneName.Substring(0, 5) + lvlNum.ToString();
-        Debug.Log(nextLVLName);
 
         if (SceneUtility.GetBuildIndexByScenePath(nextLVLName) != -1)
         {
