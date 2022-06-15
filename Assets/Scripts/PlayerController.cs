@@ -417,7 +417,8 @@ public class PlayerController : MonoBehaviour
     {
         if(col.gameObject.tag == "Limit")
         {
-            transform.position = new Vector3(0, 0, 0);
+            rb.velocity = Vector3.zero;
+            transform.position = Vector3.zero;
         }
     }
     void OnTriggerEnter(Collider col)
