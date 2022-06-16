@@ -567,7 +567,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Shift while wallrunning to go up
 
-    Contorl while wallrunning to go down'
+    Control while wallrunning to go down'
 --- !u!222 &686373652
 CanvasRenderer:
   m_ObjectHideFlags: 0
