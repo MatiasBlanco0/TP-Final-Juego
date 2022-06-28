@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: daeb5beac1d53a3488061da48c674c6a
+guid: 3fc1d8313d24106439d15f3bffe3e53a
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,7 +8,7 @@ ModelImporter:
     2100000: palette
     2300000: //RootNode
     3300000: //RootNode
-    4300000: PlatformCenter
+    4300000: WallCenter
   externalObjects:
   - first:
       type: UnityEngine:Material

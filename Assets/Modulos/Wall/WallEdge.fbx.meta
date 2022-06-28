@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f962f0468a0ef5045accc2eb87d9e75e
+guid: e832c0b8fd446fd4b9632391d793ba1a
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,18 +8,13 @@ ModelImporter:
     2100000: palette
     2300000: //RootNode
     3300000: //RootNode
-    4300000: PlataformEdge
+    4300000: WallEdge
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: palette
     second: {fileID: 2100000, guid: 78eb63cbcbf609b40a65f5f07dbbc852, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: palette47
-    second: {fileID: 2800000, guid: b7bf509b4ebd3194cb50d82d3d26241a, type: 3}
   materials:
     importMaterials: 1
     materialName: 0
